@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>form</title>
+        <style>
+        
+            input[type="text"] {
+                font-size: 12px;
+                padding: 8px;
+                border: 2px solid #e3e1e1;
+                border-radius: 4px;
+                width: 200px;
+                background-color: #79a1818a;
+            }
+            button {
+                font-size: 12px;
+                padding: 7px 20px;
+                border: 2px solid #e3e1e1;
+                background-color: #8fcc91;
+                color: white;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div style="font-size: 35px;"><strong>Dynamic Web page</strong></div>
+        <br />
+        <input type="text" id="input_append" placeholder="항목을 입력하세요!" />
+        <button onclick="listener_append()">추가</button>
+        <button onclick="delete_all()">삭제</button>
+
+        <ul id="ul_append"></ul>
+
+        <script>
+            function listener_append() {
+                let ul_append = document.getElementById("ul_append");
+                let input_append = document.getElementById("input_append").value;
+                
+                if (input_append === "" || input_append == "undefined") {
+                    return false;
+                }
+                
+                let items = input_append.split(',');
+                
+                    items.forEach(function(item) {
+                    if(item !== "") {
+                        let li = document.createElement('li');
+                        li.innerHTML = item;
+                        li.onclick = function() { listener_remove(this); };
+                        ul_append.appendChild(li);
+                    }
+                });
+                
+                document.getElementById("input_append").value = "";
+            }
+            
+            function listener_remove(obj) {
+                obj.remove();
+            }
+            
+            function delete_all() {
+                let ul_append = document.getElementById("ul_append");
+                ul_append.innerHTML = "";
+                document.getElementById("input_append").value = "";
+            }
+        </script>
+    </body>
+</html>
